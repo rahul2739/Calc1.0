@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+
+    tools:context="com.example.wagh.calc10.MainActivity"
+    android:background="#5c6bc0"
+   >
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+
+        android:textSize="42dp"
+        android:textStyle="bold"
+        android:inputType="none"
+        android:editable="false"
+
+
+        android:id="@+id/et1"
+
+        android:background="#f5f5f5"
+
+        android:textColor="#616161"/>
+
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+
+        android:layout_below="@id/et1"
+        android:textSize="42dp"
+        android:textStyle="bold"
+        android:inputType="none"
+        android:editable="false"
+        android:id="@+id/et2"
+        android:background="#f5f5f5"
+
+        android:textColor="#66bb6a"
+         />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et2"
+        android:id="@+id/tt1">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="V1.0_R3"
+            android:gravity="center"
+            android:textColor="#FFFF"/>
+        <TextView
+            />
+        <TextView
+            />
+
+
+
+        <Button
+            android:textColor="#795548"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/delete"
+            android:textSize="22dp"
+            android:text="Del"/>
+    </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/b1"
+            android:text="1"
+            android:textSize="22dp"
+
+            android:textColor="#ffffff"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            />
+
+
+        <Button
+            android:textColor="#ffffff"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/b2"
+            android:text="2"
+            android:textSize="22dp" />
+
+        <Button
+            android:textColor="#ffffff"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/b3"
+            android:text="3"
+            android:textSize="22dp" />
+
+
+        <Button
+            android:textColor="#f5f5f5"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/plus"
+            android:text="+"
+            android:textSize="32dp" />
+
+
+        />
+</TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <Button
+            android:textColor="#ffffff"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/b4"
+            android:textSize="22dp"
+            android:text="4"
+            />
+
+        <Button
+            android:textColor="#ffffff"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/b5"
+            android:text="5"
+            android:textSize="22dp"
+            android:layout_alignTop="@+id/b4"
+            android:layout_toEndOf="@+id/b4"
+            />
+
+        <Button
+            android:textColor="#ffffff"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/b6"
+            android:text="6"
+            android:textSize="22dp"></Button>
+
+
+        <Button
+            android:textColor="#f5f5f5"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/minus"
+            android:text="-"
+            android:textSize="32dp" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:textColor="#ffffff"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/b7"
+            android:text="7"
+            android:textSize="22dp"
+
+            />
+        <Button
+            android:textColor="#ffffff"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/b8"
+            android:text="8"
+            android:textSize="22dp" />
+        <Button
+            android:textColor="#ffffff"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/b9"
+            android:text="9"
+            android:textSize="22dp" />
+
+
+        <Button
+        android:textColor="#f5f5f5"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/division"
+        android:textSize="22dp"
+        android:text="/" />
+    </TableRow>
+
+        <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+            <Button
+                android:textColor="#ffffff"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/b0"
+                android:textSize="22dp"
+                android:text="0"
+                />
+
+
+            <Button
+                android:textColor="#d32f2f"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/c"
+                android:text="C"
+                android:textSize="22dp" />
+
+            <Button
+                android:textColor="#ffffff"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dot"
+                android:textSize="22dp"
+                android:text="." />
+
+
+
+            <Button
+            android:textColor="#f5f5f5"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/multiply"
+            android:text="X"
+            android:textSize="22dp" />
+
+
+        </TableRow>
+
+
+
+
+
+
+
+
+    </TableLayout>
+
+    <Button
+        android:textColor="#66bb6a"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/equals"
+        android:layout_below="@id/tt1"
+        android:text="="
+        android:textSize="42dp"/>
+
+</RelativeLayout>
