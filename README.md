@@ -1,18 +1,31 @@
 # Calc1.0
 
-Intial Commit
+<dl>
+<dt>
 
-v1.0_R3
+Intial Commit </dt>
 
-1.Material Design Applied
-2.Bugs Removed
-3.Alerts added
-4.Delete Button Added
-5.Double added for fraction
-6.New TextView for Answer
+<dt>v1.0_R3 </dt>
+
+<dd>1.Material Design Applied</dd>
+<dd>2.Bugs Removed</dd>
+<dd>3.Alerts added</dd>
+<dd>4.Delete Button Added</dd>
+<dd>5.Double added for fraction</dd>
+<dd>6.New TextView for Answer</dd>
 
 
-V1.0_R4[EXPECTED]
+<dt>V1.0_R4</dt>
 
-1.Sound Should be Added
-2.Haptic feedback should also be added
+<dd>1.Sound Added</dd>
+<dd>2.Haptic feedback added</dd>
+<dd>3.Email Integration</dd>
+<dd>4.AlertBox Used for showing Logs</dd>
+
+<dt>V1.0_R5</dt>
+
+<dd>1.More Cleaner look </dd>
+<dd>2.Addition for more than 2 numbers</dd>
+
+
+</dl>
