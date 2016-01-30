@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/rl"
 
 
     tools:context="com.example.wagh.calc10.MainActivity"
-    android:background="#5c6bc0"
+    android:background="#1a237e"
    >
 
     <EditText
@@ -55,13 +56,17 @@
         <TextView
             android:text="V1.0_R4"
             android:gravity="center"
-            android:textColor="#FFFF"/>
+            android:textColor="#FFFF"
+            android:id="@+id/version"/>
         <Button
             android:text="Help"
             android:background="?attr/selectableItemBackground"
             android:id="@+id/help"
             />
-        <TextView
+        <Button
+            android:text="Change Color"
+            android:background="?android:attr/selectableItemBackground"
+            android:id="@+id/change"
             />
 
 

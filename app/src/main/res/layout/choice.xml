@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:gravity="center_horizontal"
+        android:text="Select the color"
+        android:textStyle="bold"
+        android:id="@+id/title1"
+        android:background="@android:color/transparent"/>
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"/>
+    <Button
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:id="@+id/blue"
+        android:text="Blue"
+        android:textColor="@android:color/holo_blue_bright"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:id="@+id/black"
+        android:text="Black"
+        android:textColor="@android:color/black"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:id="@+id/red"
+        android:text="Red"
+        android:textColor="@android:color/holo_red_dark"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:id="@+id/exit"
+        android:text="OK"
+        android:textColor="@android:color/darker_gray"/>
+
+
+
+</LinearLayout>

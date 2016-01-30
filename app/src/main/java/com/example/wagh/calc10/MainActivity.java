@@ -1,20 +1,28 @@
 package com.example.wagh.calc10;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabaseLockedException;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Vibrator;
 import android.preference.DialogPreference;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.SoundEffectConstants;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,12 +30,30 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button b1,b2,b3,b4,b5,b6,b7,b8,b9,b0,plus,minus,division,multiply,equals,c,delete,dot,help;
+    Button b1,b2,b3,b4,b5,b6,b7,b8,b9,b0,plus,minus,division,multiply,equals,c,delete,dot,help,change;
    EditText et1,et2;
     String a="",b="";
     Double x,y,z;
+    TextView version;
+    String color;
     Vibrator v;
+    String flag;
     int p;
+
+    final Context context =this;
+
+    SQLiteDatabase mydb = null;
+    String tablename1 = "HISTORY";
+    String tablename2 ="NUMBERS";
+    String color2;
+
+
+
+
+
+
+
+    RelativeLayout rl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +80,83 @@ public class MainActivity extends AppCompatActivity {
         c=(Button)findViewById(R.id.c);
         dot=(Button)findViewById(R.id.dot);
         delete=(Button)findViewById(R.id.delete);
+        change=(Button)findViewById(R.id.change);
         //v=(Vibrator)this.getSystemService(Context.VIBRATOR_SERVICE);
         final MediaPlayer mp= MediaPlayer.create(this,R.raw.one);
         final MediaPlayer mp2=MediaPlayer.create(this,R.raw.two);
+
+        rl=(RelativeLayout)findViewById(R.id.rl);
+
+        version=(TextView)findViewById(R.id.version);
        // final MediaPlayer mp3=MediaPlayer.create(this,R.raw.two);
 
 
+
+
+
         help=(Button)findViewById(R.id.help);
+
+
+        change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.choice);
+                dialog.setTitle("Choose the Color");
+                Button red = (Button)dialog.findViewById(R.id.red);
+                final Button black= (Button)dialog.findViewById(R.id.black);
+                Button blue = (Button)dialog.findViewById(R.id.blue);
+                TextView title =(TextView)dialog.findViewById(R.id.title1);
+                red.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rl.setBackgroundColor(Color.RED);
+                        color = "red";
+                        Toast.makeText(MainActivity.this,"Color is changed",Toast.LENGTH_SHORT).show();
+                        et1.setTextColor(Color.RED);
+                        c.setTextColor(Color.BLACK);
+                        delete.setTextColor(Color.BLACK);
+                        database(color);
+                    }
+                });
+
+                black.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rl.setBackgroundColor(Color.BLACK);
+                        et1.setTextColor(Color.BLACK);
+                        color = "black";
+                        database(color);
+                        Toast.makeText(MainActivity.this,"Color is changed",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                blue.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rl.setBackgroundColor(Color.BLUE);
+                        et1.setTextColor(Color.BLUE);
+                        color = "blue";
+                        database(color);
+                        Toast.makeText(MainActivity.this,"Color is changed",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                Button exit=(Button)dialog.findViewById(R.id.exit);
+
+                exit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+
+                dialog.show();
+
+            }
+        });
 
 
         help.setOnClickListener(new View.OnClickListener() {
@@ -212,6 +308,20 @@ public class MainActivity extends AppCompatActivity {
                 p=0;
                 z=y=x=0.0;
                 b="";
+                try
+                {
+                    mydb =openOrCreateDatabase("Calculator",MODE_PRIVATE,null);
+                    mydb.execSQL("DELETE FROM NUMBERS;");
+
+                }
+                catch (Exception e)
+                {
+                    Log.e("ERROR","ERROR WHILE DELETING VALUES",null);
+                }
+                finally {
+                    mydb.close();
+                }
+
                 Toast.makeText(getBaseContext(),"ALL RESET",Toast.LENGTH_SHORT).show();
 
             }
@@ -296,7 +406,7 @@ public class MainActivity extends AppCompatActivity {
 
                 equals.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
                 mp2.start();
-                //equals.playSoundEffect(SoundEffectConstants.CLICK);
+
 
                 try {
                     y = Double.parseDouble(et1.getText().toString());
@@ -312,6 +422,8 @@ public class MainActivity extends AppCompatActivity {
 
                             case 1:
                                 z = x + y;
+                                flag="plus";
+                                database1(x,y,z,flag);
                                 b += x;
                                 b += "+";
                                 b += y;
@@ -337,7 +449,7 @@ public class MainActivity extends AppCompatActivity {
                             case 3:
                                 z = x * y;
                                 b += x;
-                                b += "*";
+                                b += "X";
                                 b += y;
                                 et1.setText(b);
                                 b="";
@@ -419,6 +531,66 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+    public void database(String color) {
+
+
+        /** creating database**/
+        try {
+            mydb = this.openOrCreateDatabase("Calculator", MODE_PRIVATE, null);
+
+            mydb.execSQL("CREATE TABLE IF NOT EXISTS " + tablename1 + "(Color VARCHAR2);");
+
+
+            mydb.execSQL("INSERT INTO "
+                    + tablename1
+                    + " (Color)"
+                    + " VALUES ('" + color + "');");
+
+
+        } catch (Exception e) {
+            Log.e("ERROR", "ERROR", e);
+        } finally {
+
+            mydb.close();
+            return;
+
+        }
+    }
+
+
+    public void database1(Double x,Double y,Double z,String flag) {
+
+
+        /** creating database**/
+        try {
+            mydb = this.openOrCreateDatabase("Calculator", MODE_PRIVATE, null);
+
+            mydb.execSQL("CREATE TABLE IF NOT EXISTS " + tablename2 + "(Number1 DOUBLE, Number2 DOUBLE, Number3 DOUBLE,State VARCHAR2);");
+
+
+            mydb.execSQL("INSERT INTO "
+                    + tablename2
+                    + " (Number1,Number2,Number3,State)"
+                    + " VALUES (" +x+","+y+","+z+",'"+flag+"');");
+
+
+        } catch (Exception e) {
+            Log.e("ERROR", "ERROR", e);
+        } finally {
+
+            mydb.close();
+            return;
+
+        }
+    }
+
+
+
+
+
+
    public void onResume()
     {
         super.onResume();
@@ -428,14 +600,147 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
         builder.setTitle("LOG CALC 1.0").setMessage("1.Haptic Feedback Added\n" +
-                "2.Sounds Added\n"+"3.Help Button Added").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                "2.Sounds Added\n"+"3.Help Button Added\n"+"4.Database Connectivity-Last History saved\n"+"5.Color Change Button Added").setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                Toast.makeText(MainActivity.this,"Revision R4",Toast.LENGTH_SHORT).show();
+               //Toast.makeText(MainActivity.this,"Revision R4",Toast.LENGTH_SHORT).show();
 
             }
         }).show();
+
+        /**DATA EXTRACTION**/
+
+        try
+        {
+            mydb=this.openOrCreateDatabase("Calculator",MODE_PRIVATE,null);
+
+            Cursor c = mydb.rawQuery("SELECT Color FROM "+tablename1,null);
+
+            int color1=c.getColumnIndex("Color");
+
+            c.moveToFirst();
+            if(c!=null) {
+
+                color2 = c.getString(color1);
+
+            }
+            else {
+                Toast.makeText(MainActivity.this,"END",Toast.LENGTH_SHORT).show();
+            }
+            if(color2.equals("red")) {
+                rl.setBackgroundColor(Color.RED);
+                et1.setTextColor(Color.RED);
+                //c.setTextColor(Color.BLACK);
+                delete.setTextColor(Color.BLACK);
+
+            }
+            else if (color2.equals("blue"))
+            {
+                rl.setBackgroundColor(Color.BLUE);
+                et1.setTextColor(Color.BLUE);
+            }
+            else if (color2.equals("black"))
+            {
+                rl.setBackgroundColor(Color.BLACK);
+            }
+            else {
+                Toast.makeText(MainActivity.this,"ERROR",Toast.LENGTH_SHORT).show();
+            }
+
+            mydb.execSQL("DELETE FROM HISTORY;");
+        }
+        catch (Exception e)
+        {
+            Log.e("Error","ERROR COLOR CHANGE",e);
+        }
+        finally {
+            mydb.close();
+        }
+
+
+        /**************************************** EXTRACTING THE CALC DATA *************************************************/
+
+        try
+        {
+            mydb=this.openOrCreateDatabase("Calculator",MODE_PRIVATE,null);
+
+            Cursor cc=mydb.rawQuery("SELECT Number1,Number2,Number3,State FROM " + tablename2,null);
+
+            int pp =cc.getColumnIndex("Number1");
+            int pp1=cc.getColumnIndex("Number2");
+            int pp2=cc.getColumnIndex("Number3");
+            int pp3=cc.getColumnIndex("State");
+            cc.moveToFirst();
+
+            if(cc!=null)
+            {
+                x=cc.getDouble(pp);
+                y=cc.getDouble(pp1);
+                z=cc.getDouble(pp2);
+                flag=cc.getString(pp3);
+            }
+
+            if (flag.equals("plus"))
+            {
+                b += x;
+                b += "+";
+                b += y;
+                et1.setText(b);
+                b="";
+                b += String.valueOf(z);
+                et2.setText(b);
+                b = "";
+
+            }
+            else if(flag.equals("minus"))
+            {
+                b += x;
+                b += "-";
+                b += y;
+                et1.setText(b);
+                b="";
+                b += String.valueOf(z);
+                et2.setText(b);
+                b = "";
+
+            }
+            else if(flag.equals("divide"))
+            {
+                b += x;
+                b += "/";
+                b += y;
+                et1.setText(b);
+                b="";
+                b += String.valueOf(z);
+                et2.setText(b);
+                b = "";
+
+            }
+            else if(flag.equals("multiply"))
+            {
+
+                b += x;
+                b += "X";
+                b += y;
+                et1.setText(b);
+                b="";
+                b += String.valueOf(z);
+                et2.setText(b);
+                b = "";
+            }
+
+
+        }
+        catch (Exception e)
+        {
+            Log.e("Error","ERROR NUMBER RETRIVAL",e);
+        }
+        finally {
+            mydb.close();
+        }
+
+
 
 
     }
