@@ -23,11 +23,12 @@ Intial Commit </dt>
 <dd>4.AlertBox Used for showing Logs</dd>
 <dd>5.Database Connectivity Added</dd>
 <dd>6.Change Color Button Added</dd>
+<dd>7.Addition for more than 2 numbers</dd>
 
 <dt>V1.0_R5</dt>
 
 <dd>1.More Cleaner look </dd>
-<dd>2.Addition for more than 2 numbers</dd>
+<dd></dd>
 
 
 </dl>
