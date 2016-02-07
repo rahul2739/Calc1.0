@@ -33,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
     Button b1,b2,b3,b4,b5,b6,b7,b8,b9,b0,plus,minus,division,multiply,equals,c,delete,dot,help,change;
    EditText et1,et2;
     String a="",b="";
-    Double x,y,z;
+    Float x,y,z;
     TextView version;
-    String color;
+    String color,xyx;
     Vibrator v;
     String flag;
     int p;
@@ -302,11 +302,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 mp.start();
+                plus.setBackgroundColor(Color.BLACK);
+                division.setBackgroundColor(Color.BLACK);
+                minus.setBackgroundColor(Color.BLACK);
+                multiply.setBackgroundColor(Color.BLACK);
+
+
                 a="";
                 et1.setText("");
                 et2.setText("");
                 p=0;
-                z=y=x=0.0;
+               // z=y=x=0.0;
                 b="";
                 try
                 {
@@ -327,21 +333,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 mp.start();
+                plus.setBackgroundColor(Color.GRAY);
+                division.setBackgroundColor(Color.BLACK);
+                minus.setBackgroundColor(Color.BLACK);
+                multiply.setBackgroundColor(Color.BLACK);
+                try
+                {
+                    xyx = et2.getText().toString();
+                    if  (xyx.equals("")){
 
-                try {
+                        x = Float.parseFloat(et1.getText().toString());
+                        et1.setText("");
+                        a = "";
+                    }else
+                    {
+                        x = Float.parseFloat(et2.getText().toString());
+                        et1.setText("");
+                    }
 
-                    x = Double.parseDouble(et1.getText().toString());
-                    et1.setText("");
-                    a="";
-                    p=1;
                 }
                 catch (NumberFormatException w)
                 {}
+                finally {
+                    p=1;
+                }
 
             }
         });
@@ -352,14 +374,32 @@ public class MainActivity extends AppCompatActivity {
 
                 mp.start();
 
-                try {
-                    x = Double.parseDouble(et1.getText().toString());
-                    et1.setText("");
-                    a="";
-                   p=2;
+                plus.setBackgroundColor(Color.BLACK);
+                division.setBackgroundColor(Color.BLACK);
+                minus.setBackgroundColor(Color.GRAY);
+                multiply.setBackgroundColor(Color.BLACK);
+
+                try
+                {
+                    xyx = et2.getText().toString();
+                    if  (xyx.equals("")){
+
+                        x = Float.parseFloat(et1.getText().toString());
+                        et1.setText("");
+                        a = "";
+                    }else
+                    {
+                        x = Float.parseFloat(et2.getText().toString());
+                        et1.setText("");
+                    }
+
                 }
                 catch (NumberFormatException w)
                 {}
+                    finally
+                    {
+                        p=2;
+                    }
 
             }
         });
@@ -370,12 +410,30 @@ public class MainActivity extends AppCompatActivity {
 
                 mp.start();
 
-                try {
-                    x = Double.parseDouble(et1.getText().toString());
-                    et1.setText("");
-                    a = "";
-                    p = 3;
+                plus.setBackgroundColor(Color.BLACK);
+                division.setBackgroundColor(Color.BLACK);
+                minus.setBackgroundColor(Color.BLACK);
+                multiply.setBackgroundColor(Color.GRAY);
+
+
+                try
+                {
+                    xyx = et2.getText().toString();
+                    if  (xyx.equals("")){
+
+                        x = Float.parseFloat(et1.getText().toString());
+                        et1.setText("");
+                        a = "";
+                    }else
+                    {
+                        x = Float.parseFloat(et2.getText().toString());
+                        et1.setText("");
+                    }
+
                 } catch (NumberFormatException w) {
+                }
+                finally {
+                    p=3;
                 }
 
             }
@@ -387,14 +445,32 @@ public class MainActivity extends AppCompatActivity {
 
                 mp.start();
 
-                try {
-                    x = Double.parseDouble(et1.getText().toString());
-                    et1.setText("");
-                    a="";
-                    p=4;
+                plus.setBackgroundColor(Color.BLACK);
+                division.setBackgroundColor(Color.GRAY);
+                minus.setBackgroundColor(Color.BLACK);
+                multiply.setBackgroundColor(Color.BLACK);
+
+
+                try
+                {
+                    xyx = et2.getText().toString();
+                    if  (xyx.equals("")){
+
+                        x = Float.parseFloat(et1.getText().toString());
+                        et1.setText("");
+                        a = "";
+                    }else
+                    {
+                        x = Float.parseFloat(et2.getText().toString());
+                        et1.setText("");
+                    }
+
                 }
                 catch (NumberFormatException w)
                 {}
+                finally {
+                    p=4;
+                }
 
             }
         });
@@ -409,7 +485,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 try {
-                    y = Double.parseDouble(et1.getText().toString());
+                    y = Float.parseFloat(et1.getText().toString());
                     a = "";
                     equals.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
 
@@ -421,53 +497,72 @@ public class MainActivity extends AppCompatActivity {
                         switch (p) {
 
                             case 1:
-                                z = x + y;
-                                flag="plus";
-                                database1(x,y,z,flag);
+
                                 b += x;
                                 b += "+";
                                 b += y;
                                 et1.setText(b);
-                                b="";
-                                b += String.valueOf(z);
+                                x = x + y;
+                                flag = "plus";
+                                z = x + y;
+                                database1(x, y, z, flag);
+                                b = "";
+                                //   b += String.valueOf(z);
+                                b += String.valueOf(x);
                                 et2.setText(b);
                                 b = "";
+
+                                //continue Hello;
                                 break;
 
                             case 2:
-                                z = x - y;
                                 b += x;
                                 b += "-";
                                 b += y;
                                 et1.setText(b);
+                                x = x - y;
+                                flag="minus";
+                                z=x-y;
+                                database1(x,y,z,flag);
                                 b="";
-                                b += String.valueOf(z);
+                                b += String.valueOf(x);
                                 et2.setText(b);
                                 b = "";
+
                                 break;
 
                             case 3:
-                                z = x * y;
                                 b += x;
                                 b += "X";
                                 b += y;
                                 et1.setText(b);
+                                x = x * y;
+                                flag="multiply";
+                                z=x*y;
+                                database1(x,y,z,flag);
+                                b += x;
                                 b="";
-                                b += String.valueOf(z);
+                                b += String.valueOf(x);
                                 et2.setText(b);
                                 b = "";
+
                                 break;
 
                             case 4:
-                                z = x / y;
+
                                 b += x;
                                 b += "/";
                                 b += y;
                                 et1.setText(b);
+                                x = x / y;
+                                flag="divide";
+                                z=x/y;
+                                database1(x,y,z,flag);
                                 b="";
-                                b += String.valueOf(z);
+                                b += String.valueOf(x);
                                 et2.setText(b);
                                 b = "";
+
                                 break;
 
                             case 0:
@@ -481,9 +576,10 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                     finally{
-                        z = 0.0;
-                        y = 0.0;
-                        x = 0.0;
+                      //  z = 0.0;
+                       // y = 0.0;
+                       // x = 0.0;
+
                     }
 
 
@@ -542,6 +638,7 @@ public class MainActivity extends AppCompatActivity {
 
             mydb.execSQL("CREATE TABLE IF NOT EXISTS " + tablename1 + "(Color VARCHAR2);");
 
+            mydb.execSQL("DELETE FROM "+tablename1+";");
 
             mydb.execSQL("INSERT INTO "
                     + tablename1
@@ -560,20 +657,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void database1(Double x,Double y,Double z,String flag) {
+    public void database1(Float x,Float y,Float z,String flag) {
 
 
         /** creating database**/
         try {
             mydb = this.openOrCreateDatabase("Calculator", MODE_PRIVATE, null);
 
-            mydb.execSQL("CREATE TABLE IF NOT EXISTS " + tablename2 + "(Number1 DOUBLE, Number2 DOUBLE, Number3 DOUBLE,State VARCHAR2);");
+
+            mydb.execSQL("CREATE TABLE IF NOT EXISTS " + tablename2 + "(Number1 FLOAT, Number2 FLOAT, Number3 FLOAT,State VARCHAR2);");
+
+            mydb.execSQL("DELETE FROM "+tablename2+";");
 
 
             mydb.execSQL("INSERT INTO "
                     + tablename2
                     + " (Number1,Number2,Number3,State)"
                     + " VALUES (" +x+","+y+","+z+",'"+flag+"');");
+
+
+
 
 
         } catch (Exception e) {
@@ -648,7 +751,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,"ERROR",Toast.LENGTH_SHORT).show();
             }
 
-            mydb.execSQL("DELETE FROM HISTORY;");
+
         }
         catch (Exception e)
         {
@@ -675,9 +778,9 @@ public class MainActivity extends AppCompatActivity {
 
             if(cc!=null)
             {
-                x=cc.getDouble(pp);
-                y=cc.getDouble(pp1);
-                z=cc.getDouble(pp2);
+                x=cc.getFloat(pp);
+                y=cc.getFloat(pp1);
+                z=cc.getFloat(pp2);
                 flag=cc.getString(pp3);
             }
 
