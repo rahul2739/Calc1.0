@@ -21,6 +21,8 @@ Intial Commit </dt>
 <dd>2.Haptic feedback added</dd>
 <dd>3.Email Integration</dd>
 <dd>4.AlertBox Used for showing Logs</dd>
+<dd>5.Database Connectivity Added</dd>
+<dd>6.Change Color Button Added</dd>
 
 <dt>V1.0_R5</dt>
 
